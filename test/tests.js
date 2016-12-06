@@ -1,8 +1,11 @@
 const supertest = require("supertest");
 const should = require('chai').should();
 const expect = require('chai').expect;
-const server = supertest('http://localhost:8081');
+const assert = require('chai').assert;
+const server = supertest('http://localhost:8080');
 const model = require('../models/sequelize_db');
+
+//Bedenk dat je nog een beforeEach hebt en een before
 
 describe("GET /", function(){
 	it('should return a 200 response', function(done){
@@ -23,36 +26,29 @@ describe("GET /admin/dashboard", function(){
 
 describe("POST /hackathon/add", function(){
 	it('Should be able to post a hackathon to the database', function(done){
+		const formData = {
+			name: "SNS Hack",
+			topic: "Fintech",
+			start_date: new Date(),
+			end_date: new Date(2016, 11, 30),
+			url: "sns.nl",
+			city: "Amsterdam",
+			address_name: "Bruinvisstraat",
+			address_number: 255,
+		};
 		server.post('/hackathon/add')
-		//todo
+		.send(formData)
+		.end( (err, result) => {
+			if (err) done(err);
+			model.getAllHackathons()
+			.then( (hackathon) => {
+				assert.equal(hackathon[0].name, "SNS Hack");
+				done();
+			});
+		});
 	});
 })
 
 
 
 
-
-
-
-// var expect = require('expect.js');
-
-// describe('models/task', function () {
-//   before(function () {
-//       return require('../../models').sequelize.sync();
-//   });
-
-//   beforeEach(function () {
-//     this.User = require('../../models').User;
-//     this.Task = require('../../models').Task;
-//   });
-
-//   describe('create', function () {
-//     it('creates a task', function () {
-//       return this.User.create({ username: 'johndoe' }).bind(this).then(function (user) {
-//         return this.Task.create({ title: 'a title', UserId: user.id }).then(function (task) {
-//           expect(task.title).to.equal('a title');
-//         });
-//       });
-//     });
-//   });
-// });

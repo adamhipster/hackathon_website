@@ -2,4 +2,10 @@
 echo "Usage: source testapp"
 
 export DB_NAME="hackathonsapptest"
-mocha
+node app.js &
+PID=$!
+echo "PID is:"
+echo $PID
+mocha &&
+kill $PID
+

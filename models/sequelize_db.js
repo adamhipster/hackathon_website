@@ -1,12 +1,13 @@
 const Sequelize = require('sequelize')
 
 //Possible values: "hackathonsapp" or "hackathonsapptest"
-const db = new Sequelize(process.env.DB_NAME || "hackathonsapp", 'melvin', '', {
+const db = new Sequelize( process.env.DB_NAME || "hackathonsapp", 'melvin', '', {
 	dialect: 'postgres',
 });
 
 console.log("db name");
 console.log(process.env.DB_NAME);
+console.log(db.config.database);
 
 db.authenticate().catch(x => console.log(x)).then(x => console.log('>> database connection established'));
 
@@ -41,9 +42,6 @@ const Hackathon = db.define('hackathon', {
 		type: Sequelize.STRING,
 		allowNull: false,
 	},
-},
-{
-	paranoid: true
 });
 
 const Location = db.define('location', {
@@ -78,9 +76,6 @@ const Status = db.define('status', {
 		type: Sequelize.BOOLEAN,
 		allowNull: false,
 	},
-},
-{
-	paranoid: true
 });
 
 //RELATIONS
@@ -111,7 +106,7 @@ Hackathon.hasOne(Location);
 db.sync();
 
 //EXPOSE PUBLICLY
-module.exports = {
+module.exports = {db: db, Hackathon: Hackathon, Location: Location, Status: Status,
 
 getAllHackathons: () => {
 	return Hackathon.findAll({
