@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 echo "Usage: source testapp"
 
+pkill node
 export DB_NAME="hackathonsapptest"
 node app.js &
 PID=$!
@@ -8,4 +9,3 @@ echo "PID is:"
 echo $PID
 mocha &&
 kill $PID
-

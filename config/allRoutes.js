@@ -5,10 +5,13 @@ const admin = require('../controllers/adminController');
 module.exports = function(app, router){
 	router.route('/').get(index.root);
 
-	router.route('/hackathon').all(hackathon.root);
-	router.route('/hackathon/add').post(hackathon.add);
+	//user
+	router.route('/addHackathon').post(hackathon.add);
 
+	//admin
 	router.route('/admin/dashboard').get(admin.dashboard);
+	router.route('/admin/deleteHackathon/:id').get(admin.deleteHackathon);
+	router.route('/admin/processHackathon/:id').get(admin.processHackathon);
 
 	app.use(router);
 };

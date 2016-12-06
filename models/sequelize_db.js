@@ -3,6 +3,7 @@ const Sequelize = require('sequelize')
 //Possible values: "hackathonsapp" or "hackathonsapptest"
 const db = new Sequelize( process.env.DB_NAME || "hackathonsapp", 'melvin', '', {
 	dialect: 'postgres',
+	logging: (process.env.DB_NAME=="hackathonsapptest"?false:true)
 });
 
 console.log("db name");
@@ -61,7 +62,7 @@ const Location = db.define('location', {
 		type: Sequelize.INTEGER,
 		allowNull: true,	
 	},
-})
+});
 
 const Status = db.define('status', {
 	
@@ -103,14 +104,15 @@ Hackathon.hasOne(Location);
 // .catch( (error) => console.log(error) );
 
 //PRODUCTION DB START
-db.sync();
+db.sync()
+.catch( (error) => console.log(error) );
 
 //EXPOSE PUBLICLY
 module.exports = {db: db, Hackathon: Hackathon, Location: Location, Status: Status,
 
 getAllHackathons: () => {
 	return Hackathon.findAll({
-		include: [Location, Status],
+		include: [{all: true}],
 	})
 	.then( (hackathons) => {
 		return hackathons;
@@ -119,7 +121,7 @@ getAllHackathons: () => {
 
 getHackathonById: (id) => {
 	return Hackathon.findById(id, {
-		include: [Location, Status],
+		include: [{all: true}],
 	})
 	.then( (hackathon) => {
 		return hackathon;
@@ -150,6 +152,30 @@ addHackathon: (hackathon, location) => {
 	.catch( (error) => {
 		console.log(error);
 		return error;
+	});
+},
+
+deleteHackathonById: (id) => {
+	return Hackathon.destroy({
+		where: {
+			id: id,
+		},
+		include: [{all: true}]
+	});
+},
+
+setSpamAttrForHackathonById: (id, isRealEvent) => {
+	return Hackathon.findOne({
+		where: {
+			id: id,
+		},
+		include: [{all: true}]
+	})
+	.then( (hackathon) => {
+		return hackathon.status.update({
+			unprocessed: false,
+			spam: !isRealEvent,
+		});
 	});
 },
 

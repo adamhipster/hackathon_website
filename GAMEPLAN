@@ -2,9 +2,19 @@ GAMEPLAN
 
 Create dashboard by: 
 	first selecting all queries that are unprocessed
-	Displaying it on a page
 
 Intermezzo: find a testing framework and start writing tests.
 	emulate the curls that you've been doing, nothing more, nothing less
 
-	Creating buttons on a page to modify: spam/not spam
+
+Create dashboard by:
+	Displaying unprocessed queries on a page
+	Creating buttons button actions: spam:{true,false}, delete
+	* Authentication with passport
+	Deploy via Digital Ocean
+
+
+Must have: Authentication
+Should have: Add hackathon (admin)
+Could have: text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality
+Would have: map view where you see hackathon events for upcoming week
