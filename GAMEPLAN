@@ -1,0 +1,10 @@
+GAMEPLAN
+
+Create dashboard by: 
+	first selecting all queries that are unprocessed
+	Displaying it on a page
+
+Intermezzo: find a testing framework and start writing tests.
+	emulate the curls that you've been doing, nothing more, nothing less
+
+	Creating buttons on a page to modify: spam/not spam

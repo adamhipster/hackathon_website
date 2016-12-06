@@ -1,0 +1,50 @@
+#hackathonModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type='button', data-dismiss='modal')
+					span(aria-hidden='true') &times;
+					span.sr-only Close
+				h4#myModalLabel.modal-title Voeg een hackathon aan deze lijst toe
+			.modal-body
+				script(type='text/javascript').
+					var submitted=false;
+				form.form-horizontal.well(action='/hackathon/add', method='post')
+					fieldset
+						.form-group
+							label.col-md-4.control-label(for='name') Naam
+							.col-md-4
+								input#name.form-control.input-md(name='name', type='text', placeholder='')
+						.form-group
+							label.col-md-4.control-label(for='topic') Onderwerp
+							.col-md-4
+								input#topic.form-control.input-md(name='topic', type='text', placeholder='')
+						.form-group
+							label.col-md-4.control-label(for='start_date') Begint op
+							.col-md-4
+								input#start_date.ss-q-date.form-control.input-md(type='date', name='start_date', value='', dir='auto', aria-label='Begint op  ')
+						.form-group
+							label.col-md-4.control-label(for='end_date') Eindigt op
+							.col-md-4
+								input#end_date.ss-q-date.form-control.input-md(type='date', name='end_date', value='', dir='auto', aria-label='Eindigt op  ')
+						.form-group
+							label.col-md-4.control-label(for='city') Stad
+							.col-md-4
+								input#city.form-control.input-md(name='city', type='text', placeholder='')
+						.form-group
+							label.col-md-4.control-label(for='address_name') Adresnaam
+							.col-md-4
+								input#address_name.form-control.input-md(name='address_name', type='text', placeholder='')
+						.form-group
+							label.col-md-4.control-label(for='address_number') Adresnummer
+							.col-md-4
+								input#address_number.form-control.input-md(name='address_number', type='number', min="1", max="18926" placeholder='')
+						.form-group
+							label.col-md-4.control-label(for='url') Website
+							.col-md-4
+								input#url.form-control.input-md(name='url', type='url', placeholder='')
+						br
+						.form-group
+							label.col-md-4.control-label(for='submit')
+							.col-md-4
+								button#submit.btn.btn-primary.btn-lg.col-md-12(name='submit') Verstuur
