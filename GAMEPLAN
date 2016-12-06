@@ -10,8 +10,11 @@ Intermezzo: find a testing framework and start writing tests.
 Create dashboard by:
 	Displaying unprocessed queries on a page
 	Creating buttons button actions: spam:{true,false}, delete
-	* Authentication with passport
-	Deploy via Digital Ocean
+	Authentication with passport
+		--> did local to get used with it(not Google)
+	+ Deploy via Digital Ocean
+
+* Hook admin up with frontend
 
 
 Must have: Authentication

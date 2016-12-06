@@ -1,5 +1,9 @@
 const model = require('../models/sequelize_db.js');
 
+exports.root = (req, res) => {
+	const viewContext = {};
+	res.render('admin/index', viewContext);
+}
 
 exports.dashboard = (req, res) => {
 	model.getUnprocessedHackathons()
@@ -8,6 +12,17 @@ exports.dashboard = (req, res) => {
 		res.render('admin/dashboard', viewContext);
 	});
 };
+
+//acts as a hook
+exports.authenticated = (req, res) => {
+	const viewContext = {};
+	res.redirect('/admin/dashboard');
+};
+
+exports.logout = (req, res) => {
+	req.logout();
+	res.redirect('/');
+}
 
 exports.deleteHackathon = (req, res) => {
 	const id = req.params.id;

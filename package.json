@@ -12,9 +12,14 @@
   "author": "Melvin Roest",
   "license": "ISC",
   "dependencies": {
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
     "nodemailer": "^2.6.4",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.0-beta6",
     "xoauth2": "^1.2.0"
   },
@@ -22,6 +27,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "mocha": "^3.2.0",
+    "morgan": "^1.7.0",
     "promisify-supertest": "^1.0.0",
     "request": "^2.79.0",
     "sinon": "^1.17.6",
