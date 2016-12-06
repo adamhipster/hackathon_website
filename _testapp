@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+echo "Usage: source testapp"
+
+export DB_NAME="hackathonsapptest"
+mocha

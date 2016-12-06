@@ -1,12 +1,8 @@
 const supertest = require("supertest");
 const should = require('chai').should();
 const expect = require('chai').expect;
-const server = supertest('http://localhost:8080');
-
-const Sequelize = require('sequelize')
-const db = new Sequelize('hackathonsapptest', 'melvin', '', {
-	dialect: 'postgres',
-});
+const server = supertest('http://localhost:8081');
+const model = require('../models/sequelize_db');
 
 describe("GET /", function(){
 	it('should return a 200 response', function(done){
@@ -25,7 +21,7 @@ describe("GET /admin/dashboard", function(){
 });
 
 
-descrite("POST /hackathon/add", function(){
+describe("POST /hackathon/add", function(){
 	it('Should be able to post a hackathon to the database', function(done){
 		server.post('/hackathon/add')
 		//todo
