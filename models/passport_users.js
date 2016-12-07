@@ -1,9 +1,9 @@
+//var hash = bcrypt.hashSync('password', 10);
 var records = [
-    { id: 1, username: 'mella', password: 'paard'}
+    { id: 1, username: 'mella', password: '$2a$10$77g4G0a3kj6FJsxRC8VgdOX/0IQduK9p7SDcPcasC7C.2thjhW/EO'}
 ];
 
 exports.findById = function(id, cb) {
-  console.log("findById was called");
   process.nextTick(function() {
     var idx = id - 1;
     if (records[idx]) {
@@ -15,7 +15,6 @@ exports.findById = function(id, cb) {
 }
 
 exports.findByUsername = function(username, cb) {
-  console.log("findByUsername was called");
   process.nextTick(function() {
     for (var i = 0, len = records.length; i < len; i++) {
       var record = records[i];
