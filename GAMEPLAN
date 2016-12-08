@@ -6,18 +6,19 @@ Create dashboard by:
 Intermezzo: find a testing framework and start writing tests.
 	emulate the curls that you've been doing, nothing more, nothing less
 
-
 Create dashboard by:
 	Displaying unprocessed queries on a page
 	Creating buttons button actions: spam:{true,false}, delete
 	Authentication with passport
 		--> did local to get used with it(not Google)
-	+ Deploy via Digital Ocean
+	Deploy via Digital Ocean (https)
 
-* Hook admin up with frontend
+Hook admin up with frontend
+Add hackathon (admin)
 
+Captcha
 
-Must have: Authentication
-Should have: Add hackathon (admin)
-Could have: text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality
+Must have: Seeing the list of of current hackathons as admin (+ ability to edit and/or delete)
+Should have: filters (e.g. on time/weeks, cities, country), usage statistics, automatic account generation / suggestion when you added a hackathon, interactive messages (a la Petals of the Roses)
+Could have: text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality, graceful degradation, localization (should be an English site)
 Would have: map view where you see hackathon events for upcoming week

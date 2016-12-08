@@ -12,9 +12,12 @@ console.log(db.config.database);
 
 db.authenticate().catch(x => console.log(x)).then(x => console.log('>> database connection established'));
 
+const globalOptions = 	{paranoid: true}
+
 //DEFINITIONS
 const Hackathon = db.define('hackathon', {
 	//Minimum: name, location (foreign key), start date, url
+
 	name: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -43,7 +46,8 @@ const Hackathon = db.define('hackathon', {
 		type: Sequelize.STRING,
 		allowNull: false,
 	},
-});
+},
+globalOptions);
 
 const Location = db.define('location', {
 	// country: {
@@ -62,10 +66,10 @@ const Location = db.define('location', {
 		type: Sequelize.INTEGER,
 		allowNull: true,	
 	},
-});
+},
+globalOptions);
 
 const Status = db.define('status', {
-	
 	//For when I feel like I want to train a spam filter
 	spam: {
 		type: Sequelize.BOOLEAN,
@@ -77,35 +81,21 @@ const Status = db.define('status', {
 		type: Sequelize.BOOLEAN,
 		allowNull: false,
 	},
-});
+},
+globalOptions);
 
 //RELATIONS
 Hackathon.hasOne(Status);
 Hackathon.hasOne(Location);
 
-//DEVELOPMENT DB START
-// db.sync({force:true})
-// .then( (x) => {
-// 	return Promise.all([
-// 			User.create({
-// 				firstname:'Melvin',
-// 				lastname:'Roest',
-// 				username:'mella',
-// 				password: '$2a$10$Ggg0Usp6T2a.lJMbTWrLEupiZUJBjH4uQy.G1tpzxu9gX9EtnJyUm',
-// 				posts: [
-// 					{title:'Lifehack', body: 'The best lifehack is hugging people.' },
-// 					{title:'Awesome', body: 'Just Splendid!'},
-// 				]
-// 			}, {
-// 				include: [ Post ]
-// 			}),
-// 		])
-// 	})
-// .catch( (error) => console.log(error) );
 
 //PRODUCTION DB START
 db.sync()
 .catch( (error) => console.log(error) );
+
+//DEVELOPMENT DB START
+// db.sync({force:true})
+// .catch( (error) => console.log(error) );
 
 //EXPOSE PUBLICLY
 module.exports = {db: db, Hackathon: Hackathon, Location: Location, Status: Status,
@@ -128,7 +118,7 @@ getHackathonById: (id) => {
 	});
 },
 
-addHackathon: (hackathon, location) => {
+addHackathon: (hackathon, location, isSpam, isUnprocessed) => {
 	const value = {
 		name: hackathon.name,
 		topic: hackathon.topic,
@@ -141,8 +131,8 @@ addHackathon: (hackathon, location) => {
 			address_number: location.address_number,
 		},
 		status: {
-			spam: null,
-			unprocessed: true,
+			spam: isSpam,					//null for anon users, false for admin
+			unprocessed: isUnprocessed, //true for anon users, false for admin
 		}
 	};
 	const opts = {
@@ -192,6 +182,39 @@ getUnprocessedHackathons: () => {
 	.then( (hackathons) => {
 		return hackathons;
 	});
-}
+},
 
-};
+getRealHackathons: () => {
+	return Hackathon.findAll({
+		order: '"start_date" ASC',
+		include: [{
+			model: Location,
+		},
+		{
+			model: Status,
+			where: {unprocessed: false, spam: false},
+		}],
+	})
+	.then( (hackathons) => {
+		return hackathons;
+	});
+},
+
+getDeletedHackathons: () => {
+	return Hackathon.findAll({
+		paranoid: false, 
+		where: {deletedAt: {ne: null}},
+		include: [{all: true}],
+	})
+	.then( (hackathons) => {
+		console.log(hackathons);
+		return hackathons;
+	});
+},
+
+
+
+
+
+
+}; //end of module.exports

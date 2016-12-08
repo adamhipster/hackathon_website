@@ -11,6 +11,8 @@ TO DO
 # App specific
 ignore/*
 cookies.txt
+*virtual_environment/*
+*virtual_environment*
 
 # Config specific
 config.js

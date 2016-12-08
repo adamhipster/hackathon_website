@@ -16,59 +16,14 @@ html(lang='en')
 								th Waar
 								th Wanneer
 						tbody
-							tr
-								td
-									a(href='http://www.dataschool.nl/events/nss-hackathon/', target='_blank') NSS HACKATHON
-								td Utrecht
-								td
-									time.icon(datetime='2014-03-24')
-										em za. - zo.
-										|  
-										strong november
-										|  
-										span 24 - 25
-							tr
-								td
-									a(href='http://www.worldporthackathon.nl/', target='_blank') World Port Hackathon
-								td Rotterdam
-								td
-									time.icon(datetime='2014-09-05')
-										em za. - zo.
-										|  
-										strong december
-										|  
-										span 5 - 6
-							tr
-								td
-									a(href='http://www.dutchopenhackathon.com/nl/', target='_blank') Dutch Open Hackathon
-								td Amsterdam
-								td
-									time.icon(datetime='2014-09-22')
-										em ma. - wo.
-										|  
-										strong dec/jan
-										|  
-										span 31 - 2
-							tr
-								td
-									a(href='http://dutchfintechhackathon.nl/', target='_blank') Dutch Fintech Hackathon
-								td Utrecht
-								td
-									time.icon(datetime='2014-07-04')
-										em za.
-										|  
-										strong februari
-										|  
-										span 29
-							tr
-								td
-									a(href='http://www.daretodifr.com/kinect-hackathon/', target='_blank') Ams Kinect Hackathon
-								td Amsterdam
-								td
-									time.icon(datetime='2014-09-05')
-										em vr.
-										|  
-										strong maart
-										|  
-										span 19
+							each hackathon in hackathons
+								tr
+									td 
+										a(href="http://www."+hackathon.url, target='_blank') #{hackathon.name}
+									td #{hackathon.location.city}									
+									td 
+										time.icon(datetime=hackathon.start_date)
+											em #{hackathon.dayRenderString}
+											strong #{hackathon.monthRenderString}
+											span #{hackathon.dateRenderString}
 		include partials/scripts.pug

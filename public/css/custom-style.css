@@ -59,7 +59,7 @@ time.icon strong
   padding: 0.4em 0;
   color: #fff;
   background-color: #fd9f1b;
-  border-bottom: 1px dashed #f37302;
+  /*border-bottom: 1px dashed #f37302;*/
   box-shadow: 0 2px 0 #fd9f1b;
 }
 

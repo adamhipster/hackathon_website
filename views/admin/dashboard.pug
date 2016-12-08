@@ -1,8 +1,9 @@
 doctype html
 html(lang='en')
 	head
-		include partials/head_preamble.pug	
+		include ./partials/head_preamble.pug	
 	body
+		include ./partials/navbar.pug
 		.container
 			.starter-template
 				h1 Dashboard
@@ -26,4 +27,4 @@ html(lang='en')
 										a.btn.btn-success(href='/admin/processHackathon/'+hackathon.id+'?isRealEvent=true') Real Event 
 										a.btn.btn-warning(href='/admin/processHackathon/'+hackathon.id+'?isRealEvent=false') Spam 
 										a.btn.btn-danger(href='/admin/deleteHackathon/'+hackathon.id) Delete 
-		include partials/scripts.pug
+		include ./partials/scripts.pug

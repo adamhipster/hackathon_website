@@ -8,6 +8,8 @@ const db = require('../models/passport_users');
 const bcrypt = require('bcrypt');
 
 module.exports = function(app, router){
+
+	//to do: put passport in its own seperate file
 	passport.use(new Strategy(
 		function(username, password, cb) {
 			db.findByUsername(username, function(err, user) {
@@ -30,8 +32,6 @@ module.exports = function(app, router){
 		});
 	});
 
-
-
 	app.use(passport.initialize());
 	app.use(passport.session());
 
@@ -40,16 +40,19 @@ module.exports = function(app, router){
 	//anon user
 	router.route('/addHackathon').post(hackathon.add);
 
-	//admin views
+	//admin views -- note: views are have under_scored style
 	router.route('/admin').get(admin.root);
 	router.route('/admin/dashboard').get(ensureLoggedin('/admin'), admin.dashboard);
+	router.route('/admin/live_hackathons').get(ensureLoggedin('/admin'), admin.liveHackathons);
+	router.route('/admin/deleted_hackathons').get(ensureLoggedin('/admin'), admin.deletedHackathons);
 
-	//admin functions
+	//admin functions -- note: functions have camelCase
+	router.route('/admin/addHackathon').post(ensureLoggedin('/admin'), admin.addHackathon);
 	router.route('/admin/deleteHackathon/:id').get(ensureLoggedin('/admin'), admin.deleteHackathon);
 	router.route('/admin/processHackathon/:id').get(ensureLoggedin('/admin'), admin.processHackathon);
-	router.route('/admin/login').post(
+	router.route('/admin/dashboard').post(
 		passport.authenticate('local', { failureRedirect: '/admin' }), 
-		admin.authenticated	//redirects to /admin/dashboard
+		admin.dashboard	//redirects to /admin/dashboard
 	);
 	router.route('/admin/logout').get(ensureLoggedin('/admin'), admin.logout);
 

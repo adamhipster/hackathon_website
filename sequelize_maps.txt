@@ -1,0 +1,30 @@
+
+[4mSequelize [Node: 6.9.1, CLI: 2.4.0, ORM: 3.27.0][24m
+
+Loaded configuration file "config/config.json".
+Using environment "development".
+[1mCOMMANDS[22m
+    sequelize init -- Initializes the project.
+[1mDESCRIPTION[22m
+    The command will initialize the current directory.
+    In detail this means, that you will find the following items afterwards:
+    
+    [94mconfig            [39m A folder that contains the config files.
+    [94mconfig/config.json[39m A file that contains the configuration for the ORM.
+    [94mmigrations        [39m A folder that containts the migration files.
+    [94mseeders           [39m A folder that containts the seed files.
+    [94mmodels            [39m A folder that contains the model files.
+    [94mmodels/index.js   [39m A file that can be required to load all the models.
+    
+    Most of the files and folders can be changed to fit custom folder structures.
+    Check the options for further information.
+[1mOPTIONS[22m
+    --env              The environment to run the command in. [94mDefault: development[39m
+    --coffee           Enables coffee script support. [94mDefault: false[39m
+    --config           The path to the config file. [94mDefault: config/config.json[39m
+    --options-path     The path to a JSON file with additional options. [94mDefault: none[39m
+    --migrations-path  The path to the migrations folder. [94mDefault: migrations[39m
+    --seeders-path     The path to the seeders folder. [94mDefault: seeders[39m
+    --models-path      The path to the models folder.[94mDefault: models[39m
+    --url              The database connection string to use. Alternative to using --config files. [94mDefault: none[39m
+    --force            Will drop the existing config folder and re-create it. [94mDefault: false[39m
