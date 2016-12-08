@@ -25,8 +25,9 @@ Seeing the list of of current hackathons as admin with the ability to:
 	Approve hackathons
 	Add live hackathons
 
+Noscript tag toegevoegd: het is alleen mogelijk om hackathons te bekijken.
 
 Must have:
-Should have: usage statistics, automatic account generation / suggestion when you added a hackathon, interactive messages (a la Petals of the Roses)
+Should have: usage statistics, account generation / suggestion for account when you added a hackathon, interactive messages (a la Petals of the Roses)
 Could have: filters (e.g. on time/weeks, cities, country), text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality, graceful degradation, localization (should be an English site)
-Would have: map view where you see hackathon events for upcoming week
+Would have: map view where you see hackathon events for upcoming week, *automatic* account generation, hackathons toevoegen zonder javascript

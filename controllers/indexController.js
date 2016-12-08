@@ -31,9 +31,12 @@ exports.root = (req, res) => {
 			hackathon.dayRenderString = dayRenderString;
 			hackathon.monthRenderString = monthRenderString;
 		}
+
+		const serverMessage = "Dit is een bericht van de server.";
 	
 		const viewContext = {
 			hackathons: hackathons, 
+			serverMessage: serverMessage,
 		};	
 		res.render('index', viewContext);
 	});
