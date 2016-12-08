@@ -18,7 +18,15 @@ Add hackathon (admin)
 
 Captcha
 
-Must have: Seeing the list of of current hackathons as admin (+ ability to edit and/or delete)
-Should have: filters (e.g. on time/weeks, cities, country), usage statistics, automatic account generation / suggestion when you added a hackathon, interactive messages (a la Petals of the Roses)
-Could have: text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality, graceful degradation, localization (should be an English site)
+Seeing the list of of current hackathons as admin with the ability to:
+	Check all the hackathons flagged as spam
+	Check all the hackathons that are deleted
+	Delete live hackathons
+	Approve hackathons
+	Add live hackathons
+
+
+Must have:
+Should have: usage statistics, automatic account generation / suggestion when you added a hackathon, interactive messages (a la Petals of the Roses)
+Could have: filters (e.g. on time/weeks, cities, country), text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality, graceful degradation, localization (should be an English site)
 Would have: map view where you see hackathon events for upcoming week
