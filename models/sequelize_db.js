@@ -155,6 +155,7 @@ deleteHackathonById: (id) => {
 },
 
 setSpamAttrForHackathonById: (id, isRealEvent) => {
+	let isSpam = (isRealEvent===false)?false:true; //for some reason !isRealEvent doesn't work.
 	return Hackathon.findOne({
 		where: {
 			id: id,
@@ -164,7 +165,7 @@ setSpamAttrForHackathonById: (id, isRealEvent) => {
 	.then( (hackathon) => {
 		return hackathon.status.update({
 			unprocessed: false,
-			spam: !isRealEvent,
+			spam: isSpam,
 		});
 	});
 },
@@ -207,12 +208,24 @@ getDeletedHackathons: () => {
 		include: [{all: true}],
 	})
 	.then( (hackathons) => {
-		console.log(hackathons);
 		return hackathons;
 	});
 },
 
-
+getSpammedHackathons: () => {
+	return Hackathon.findAll({
+		include: [{
+			model: Location,
+		},
+		{
+			model: Status,
+			where: {spam: true},
+		}],
+	})
+	.then( (hackathons) =>{
+		return hackathons;
+	});
+},
 
 
 

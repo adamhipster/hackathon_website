@@ -46,6 +46,8 @@ module.exports = function(app, router){
 	router.route('/admin/approve_hackathons').get(ensureLoggedin('/admin'), admin.approveHackathons);
 	router.route('/admin/live_hackathons').get(ensureLoggedin('/admin'), admin.liveHackathons);
 	router.route('/admin/deleted_hackathons').get(ensureLoggedin('/admin'), admin.deletedHackathons);
+	router.route('/admin/spammed_hackathons').get(ensureLoggedin('/admin'), admin.spammedHackathons);
+	
 
 	//admin functions -- note: functions have camelCase
 	router.route('/admin/addHackathon').post(ensureLoggedin('/admin'), admin.addHackathon);

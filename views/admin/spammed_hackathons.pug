@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+	head
+		include ./partials/head_preamble.pug	
+	body
+		include ./partials/navbar.pug
+		.container
+			.starter-template
+				h1 Hackathons flagged as spam
+				p.lead These hackathons are flagged as spam and only serve for logging purposes. If you want to add them, you'll have to do it manually.
+				.bs-example
+					table.table.table-striped.lead
+						thead
+							tr
+								th Naam
+								th Url
+								th Waar
+								th Wanneer
+						tbody
+							each hackathon in hackathons
+								tr
+									td #{hackathon.name}
+									td #{hackathon.url}
+									td #{hackathon.location.city}									
+									td #{hackathon.start_date}
+		include ./partials/scripts.pug

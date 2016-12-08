@@ -39,6 +39,16 @@ exports.deletedHackathons = (req, res) => {
 	});
 };
 
+exports.spammedHackathons = (req, res) => {
+	model.getSpammedHackathons()
+	.then( (hackathons) => {
+		const viewContext = {
+			hackathons: hackathons, 
+		};	
+		res.render('admin/spammed_hackathons', viewContext);
+	});
+};
+
 exports.logout = (req, res) => {
 	req.logout();
 	res.redirect('/');
@@ -70,17 +80,15 @@ exports.deleteHackathon = (req, res) => {
 	const id = req.params.id;
 	model.deleteHackathonById(id)
 	.then( (deletionMessage) => {
-		console.log(deletionMessage);
-		res.redirect('/admin/dashboard');
+		res.redirect('/admin/live_hackathons');
 	});
 };
 
 exports.processHackathon = (req, res) => {
-	const isRealEvent = req.query.isRealEvent;
+	let isRealEvent = req.query.isRealEvent;
 	const id = req.params.id;
 	model.setSpamAttrForHackathonById(id, isRealEvent) //also sets `unprocessed = false`
 	.then( (message) => {
-		console.log(message);
-		res.redirect('/admin/dashboard');
+		res.redirect('/admin/approve_hackathons');
 	});
 };
