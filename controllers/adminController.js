@@ -6,12 +6,8 @@ exports.root = (req, res) => {
 }
 
 //dashboard komt in het menu te staan en krijgt leuke knoppen om op te klikken
-exports.dashboard = (req, res) => {
-	model.getUnprocessedHackathons()
-	.then( (hackathons) => {
-		const viewContext = {hackathons: hackathons};	
-		res.render('admin/dashboard', viewContext);
-	});
+exports.dashboard = (req, res) =>{
+	res.render('admin/dashboard');
 };
 
 //formerly known as dashboard
@@ -19,7 +15,7 @@ exports.approveHackathons = (req, res) => {
 	model.getUnprocessedHackathons()
 	.then( (hackathons) => {
 		const viewContext = {hackathons: hackathons};	
-		res.render('admin/dashboard', viewContext);
+		res.render('admin/approve_hackathons', viewContext);
 	});
 };
 

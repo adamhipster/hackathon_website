@@ -29,6 +29,25 @@ body {
 
 
 
+.admin_pane_container{
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.admin_pane:hover
+{
+  font-size: 32px;
+  color: orange;
+}
+
+.admin_pane
+{
+  font-size: 32px;
+  color: #444; /* based on #333 van font */
+}
+
 time.icon
 {
   font-size: 0.65em; /* change icon size */

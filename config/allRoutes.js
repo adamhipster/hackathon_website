@@ -43,6 +43,7 @@ module.exports = function(app, router){
 	//admin views -- note: views are have under_scored style
 	router.route('/admin').get(admin.root);
 	router.route('/admin/dashboard').get(ensureLoggedin('/admin'), admin.dashboard);
+	router.route('/admin/approve_hackathons').get(ensureLoggedin('/admin'), admin.approveHackathons);
 	router.route('/admin/live_hackathons').get(ensureLoggedin('/admin'), admin.liveHackathons);
 	router.route('/admin/deleted_hackathons').get(ensureLoggedin('/admin'), admin.deletedHackathons);
 

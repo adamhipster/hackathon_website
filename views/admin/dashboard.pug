@@ -2,29 +2,21 @@ doctype html
 html(lang='en')
 	head
 		include ./partials/head_preamble.pug	
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 	body
 		include ./partials/navbar.pug
 		.container
 			.starter-template
 				h1 Dashboard
-				p.lead Decide whether a hackathon is spam.
-				.bs-example
-					table.table.table-striped.lead
-						thead
-							tr
-								th Naam
-								th Waar
-								th Wanneer
-								th Actie
-						tbody
-							each hackathon in hackathons
-								tr
-									td 
-										a(href="http://www."+hackathon.url, target='_blank') #{hackathon.name}
-									td #{hackathon.location.city}									
-									td #{hackathon.start_date}
-									td
-										a.btn.btn-success(href='/admin/processHackathon/'+hackathon.id+'?isRealEvent=true') Real Event 
-										a.btn.btn-warning(href='/admin/processHackathon/'+hackathon.id+'?isRealEvent=false') Spam 
-										a.btn.btn-danger(href='/admin/deleteHackathon/'+hackathon.id) Delete 
+				p.lead What do you want to do?
+				.bs-example.admin_pane_container
+					a.admin_pane(href="/admin/approve_hackathons" title="Approve hackathons, mark as spam or delete") 
+						i(class="material-icons" style="font-size:192px") thumbs_up_down
+						p Approve Hackathons
+					a.admin_pane(href="/admin/live_hackathons" title="Manage the live hackathons") 
+						i(class="material-icons" style="font-size:192px;") check_circle
+						p Live Hackathons
+					a.admin_pane(href="/admin/deleted_hackathons" title="Look at the deleted hackathons (warning: this is a barebones fallback)")
+						i(class="material-icons" style="font-size:192px;") delete
+						p Deleted Hackathons
 		include ./partials/scripts.pug

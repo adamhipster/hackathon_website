@@ -1,0 +1,30 @@
+doctype html
+html(lang='en')
+	head
+		include ./partials/head_preamble.pug	
+	body
+		include ./partials/navbar.pug
+		.container
+			.starter-template
+				h1 Approve Hackathons
+				p.lead Decide whether a hackathon is spam. Perhaps even delete very useless items (<strong style="color: red">warning: hard to retrieve</strong>).
+				.bs-example
+					table.table.table-striped.lead
+						thead
+							tr
+								th Naam
+								th Waar
+								th Wanneer
+								th Actie
+						tbody
+							each hackathon in hackathons
+								tr
+									td 
+										a(href="http://www."+hackathon.url, target='_blank') #{hackathon.name}
+									td #{hackathon.location.city}									
+									td #{hackathon.start_date}
+									td
+										a.btn.btn-success(href='/admin/processHackathon/'+hackathon.id+'?isRealEvent=true') Real Event 
+										a.btn.btn-warning(href='/admin/processHackathon/'+hackathon.id+'?isRealEvent=false') Spam 
+										a.btn.btn-danger(href='/admin/deleteHackathon/'+hackathon.id) Delete 
+		include ./partials/scripts.pug
