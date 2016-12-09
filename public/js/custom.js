@@ -1,12 +1,13 @@
-function serverMessage (msg) {
-	$svm = $(".server_msg");
-	$svm.empty();
-	if (msg) {
-		var tag = $("<p>", { html : msg, class: "flow-text", css: {display: "none"}});
-		setTimeout(function(){$svm.append(tag).children('p').slideDown(300).delay(8000).slideUp(300)}, 1000);
-	} 
+//kan graceful degradation hebben door `display: none` hier naartoe te halen en het erop te zetten als het laadt. Of eventueel: geen slidedown maar alleen een slide up.
+function displayServerMessage () {
+	$svm = $("p.server_msg");
+	if (!isEmpty($svm)) {
+		setTimeout(function(){$svm.slideDown(300).delay(3000).slideUp(300)}, 1000);
+	}
 }
 
-// msg = "Hey this is a message that is a lot longer than normal. I hope this is okay. We'll see :)"
-				// + " Alrighty, this about the maximum text that we can manage";
-serverMessage(msg);
+function isEmpty( el ){
+	return !$.trim(el.html())
+}
+
+displayServerMessage();

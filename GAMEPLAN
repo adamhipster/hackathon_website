@@ -18,6 +18,8 @@ Add hackathon (admin)
 
 Captcha
 
+TO DO: change add_hackathon (invalid recaptcha) and navbar to one file, server-side animated messaging
+
 Seeing the list of of current hackathons as admin with the ability to:
 	Check all the hackathons flagged as spam
 	Check all the hackathons that are deleted

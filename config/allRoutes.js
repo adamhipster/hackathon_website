@@ -1,6 +1,6 @@
-const index = require('../controllers/indexController');
 const hackathon = require('../controllers/hackathonController');
 const admin = require('../controllers/adminController');
+const _ = require('underscore');
 const ensureLoggedin = require('connect-ensure-login').ensureLoggedIn;
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
@@ -34,14 +34,27 @@ module.exports = function(app, router){
 
 	app.use(passport.initialize());
 	app.use(passport.session());
+	//end passport
 
-	router.route('/').get(index.root);
 
 	//anon user
+	router.route('/').get(hackathon.root);
 	router.route('/addHackathon').post(hackathon.add);
+	router.route('/admin').get(admin.root);
+
+	//see: http://stackoverflow.com/questions/9285880/node-js-express-js-how-to-override-intercept-res-render-function
+	app.use(function( req, res, next ) {
+		if(req.url.includes('admin/')){
+			const _render = res.render;
+			res.render = function( view, options, fn ) {
+				_.extend( options, {isAdmin: true} );
+				_render.call( this, view, options, fn );
+			}
+		}
+		next();
+	});
 
 	//admin views -- note: views are have under_scored style
-	router.route('/admin').get(admin.root);
 	router.route('/admin/dashboard').get(ensureLoggedin('/admin'), admin.dashboard);
 	router.route('/admin/approve_hackathons').get(ensureLoggedin('/admin'), admin.approveHackathons);
 	router.route('/admin/live_hackathons').get(ensureLoggedin('/admin'), admin.liveHackathons);
@@ -51,10 +64,12 @@ module.exports = function(app, router){
 
 	//admin functions -- note: functions have camelCase
 	router.route('/admin/addHackathon').post(ensureLoggedin('/admin'), admin.addHackathon);
-	router.route('/admin/deleteHackathon/:id').get(ensureLoggedin('/admin'), admin.deleteHackathon);
-	router.route('/admin/processHackathon/:id').get(ensureLoggedin('/admin'), admin.processHackathon);
+	router.route('/admin/deleteHackathon/:id').get(ensureLoggedin('/admin'), admin.deleteHackathon); //moet dit redirecten naar live_hackathons? Wordt door zowel spamview als liveview aangeroepen
+	router.route('/admin/processHackathon/:id').get(ensureLoggedin('/admin'), admin.processHackathon, admin.approveHackathons);
+	
 	router.route('/admin/dashboard').post(
-		passport.authenticate('local', { failureRedirect: '/admin' }), 
+		passport.authenticate('local', { failureRedirect: '/admin' }),
+		ensureLoggedin('/admin'), 
 		admin.dashboard	//redirects to /admin/dashboard
 	);
 	router.route('/admin/logout').get(ensureLoggedin('/admin'), admin.logout);

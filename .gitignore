@@ -4,6 +4,10 @@ TO DO
 # vim
 *.swp
 
+# VS Code
+typings/*
+*.vscode
+
 # Sublime
 *.sublime-project
 *.sublime-workspace

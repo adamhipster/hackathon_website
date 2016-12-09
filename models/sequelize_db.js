@@ -155,7 +155,7 @@ deleteHackathonById: (id) => {
 },
 
 setSpamAttrForHackathonById: (id, isRealEvent) => {
-	let isSpam = (isRealEvent===false)?false:true; //for some reason !isRealEvent doesn't work.
+	let isSpam = (isRealEvent===false)?true:false; //for some reason !isRealEvent doesn't work.
 	return Hackathon.findOne({
 		where: {
 			id: id,

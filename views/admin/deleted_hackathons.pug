@@ -1,9 +1,9 @@
 doctype html
 html(lang='en')
 	head
-		include ./partials/head_preamble.pug	
+		include ../partials/head_preamble.pug	
 	body
-		include ./partials/navbar.pug
+		include ../partials/navbar.pug
 		.container
 			.starter-template
 				h1 Deleted Hackathons
@@ -22,4 +22,4 @@ html(lang='en')
 										a(href="http://www."+hackathon.url, target='_blank') #{hackathon.name}
 									td #{hackathon.location.city}									
 									td #{hackathon.start_date}
-		include ./partials/scripts.pug
+		include ../partials/scripts.pug

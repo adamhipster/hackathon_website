@@ -1,10 +1,10 @@
 doctype html
 html(lang='en')
 	head
-		include ./partials/head_preamble.pug	
+		include ../partials/head_preamble.pug	
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 	body
-		include ./partials/navbar.pug
+		include ../partials/navbar.pug
 		.container
 			.starter-template
 				h1 Dashboard
@@ -22,4 +22,4 @@ html(lang='en')
 					a.admin_pane(href="/admin/spammed_hackathons" title="Look at the hackathons flagged as spam (warning: this is a barebones fallback)")
 						i(class="material-icons" style="font-size:192px;") strikethrough_s
 						p Flagged as spam
-		include ./partials/scripts.pug
+		include ../partials/scripts.pug

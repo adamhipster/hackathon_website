@@ -1,3 +1,7 @@
+if isAdmin
+	- var actionPrefix ='/admin';
+else
+	- var actionPrefix ='';
 #hackathonModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
 	.modal-dialog
 		.modal-content
@@ -9,7 +13,7 @@
 			.modal-body
 				script(type='text/javascript').
 					var submitted=false;
-				form.form-horizontal.well(action='/addHackathon', method='post')
+				form.form-horizontal.well(action= actionPrefix + '/addHackathon', method='post')
 					fieldset
 						.form-group
 							label.col-md-4.control-label(for='name') Naam
@@ -48,5 +52,8 @@
 							label.col-md-4.control-label(for='submit')
 							.col-md-4
 								button#submit.btn.btn-primary.btn-lg.col-md-12(name='submit') Verstuur
-					div(class="g-recaptcha" data-sitekey="6Lc4Gw4UAAAAAIANaqNWbLvalhbp_ORdREPBznej")
-script(src='https://www.google.com/recaptcha/api.js')
+						| 
+						if !isAdmin
+							div(class="g-recaptcha" data-sitekey="6Lc4Gw4UAAAAAIANaqNWbLvalhbp_ORdREPBznej")
+if !isAdmin
+	script(src='https://www.google.com/recaptcha/api.js')
