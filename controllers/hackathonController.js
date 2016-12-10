@@ -48,7 +48,6 @@ exports.wortel = (req, res) => {
 
 		//back buttons should not be able to display messages
 		if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
-
 		req.session.serverMessage = null;
 		res.render('index', viewContext);
 	});

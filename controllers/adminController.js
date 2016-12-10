@@ -1,5 +1,5 @@
 const model = require('../models/sequelize_db.js');
-const dispatchView = require('./utils').dispatchView;
+const redirectToView = require('./utils').redirectToView;
 
 exports.root = (req, res) => {
 	const viewContext = {};
@@ -9,8 +9,10 @@ exports.root = (req, res) => {
 //dashboard komt in het menu te staan en krijgt leuke knoppen om op te klikken
 exports.dashboard = (req, res) =>{
 	const viewContext = {
-		serverMessage: req.serverMessage
+		serverMessage: req.session.serverMessage
 	};
+	if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
+	req.session.serverMessage = null;
 	res.render('admin/dashboard', viewContext);
 };
 
@@ -20,8 +22,10 @@ exports.approveHackathons = (req, res) => {
 	.then( (hackathons) => {
 		const viewContext = {
 			hackathons: hackathons,
-			serverMessage: req.serverMessage,
+			serverMessage: req.session.serverMessage,
 		};	
+		if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
+		req.session.serverMessage = null;
 		res.render('admin/approve_hackathons', viewContext);
 	});
 };
@@ -31,8 +35,10 @@ exports.liveHackathons = (req, res) => {
 	.then( (hackathons) => {
 		const viewContext = {
 			hackathons: hackathons, 
-			serverMessage: req.serverMessage,
-		};	
+			serverMessage: req.session.serverMessage,
+		};
+		if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
+		req.session.serverMessage = null;
 		res.render('admin/live_hackathons', viewContext);
 	});
 };
@@ -42,8 +48,10 @@ exports.deletedHackathons = (req, res) => {
 	.then( (hackathons) => {
 		const viewContext = {
 			hackathons: hackathons, 
-			serverMessage: req.serverMessage,
-		};	
+			serverMessage: req.session.serverMessage,
+		};
+		if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
+		req.session.serverMessage = null;
 		res.render('admin/deleted_hackathons', viewContext);
 	});
 };
@@ -53,8 +61,10 @@ exports.spammedHackathons = (req, res) => {
 	.then( (hackathons) => {
 		const viewContext = {
 			hackathons: hackathons, 
-			serverMessage: req.serverMessage,
-		};	
+			serverMessage: req.session.serverMessage,
+		};
+		if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
+		req.session.serverMessage = null;
 		res.render('admin/spammed_hackathons', viewContext);
 	});
 };
@@ -82,10 +92,16 @@ exports.addHackathon = (req, res) => {
 	const isUnprocessed = false;
 	model.addHackathon(hackathon, location, isSpam, isUnprocessed)
 	.then( (hackathon) => {
-		req.serverMessage = "Hackathon " + hackathon.id + " gehouden in " + hackathon.location.city + " is toegevoegd!";
-		const views={dashboard: this.dashboard, approve: this.approveHackathons, live: this.liveHackathons, delete: this.deletedHackathons, spammed: this.spammedHackathons};
-		const dispatchLog = dispatchView(req, res, views, req.headers.referer);
-		console.log("Dispatch = " + dispatchLog);
+		req.session.serverMessage = "Hackathon " + hackathon.id + " gehouden in " + hackathon.location.city + " is toegevoegd!";
+		const views = {
+			dashboard: '/admin/dashboard', 
+			approve: '/admin/approve_hackathons',
+			live: '/admin/live_hackathons', 
+			delete: '/admin/deleted_hackathons', 
+			spammed: '/admin/spammed_hackathons',
+		};
+		if(!redirectToView(req, res, views, req.headers.referer))
+			res.end('it shouldnt come to this');
 	});
 };
 
@@ -93,21 +109,27 @@ exports.deleteHackathon = (req, res) => {
 	const id = req.params.id;
 	model.deleteHackathonById(id)
 	.then( (deletionMessage) => {
-		req.serverMessage = "Hackathon " + id + " is verwijderd met:" +  deletionMessage;
+		req.session.serverMessage = "Hackathon " + id + " is verwijderd met:" +  deletionMessage;
 		const ref = req.headers.referer;
-		const views = {approve: this.approveHackathons, live: this.liveHackathons};
-		const dispatchLog = dispatchView(req, res, views, req.headers.referer);
-		console.log("Dispatch = " + dispatchLog);
+		const views = {
+			approve: '/admin/approve_hackathons', 
+			live: '/admin/live_hackathons'
+		};
+		if(!redirectToView(req, res, views, req.headers.referer))
+					res.end('it shouldnt come to this');
 	});
 };
 
-//Still happens via the middleware way.
-exports.processHackathon = (req, res, next) => {
+exports.processHackathon = (req, res) => {
 	let isRealEvent = req.query.isRealEvent;
 	const id = req.params.id;
 	model.setSpamAttrForHackathonById(id, isRealEvent) //also sets `unprocessed = false`
 	.then( (message) => {
-		req.serverMessage = "Hackathon " + id + " is vewerkt met: " + isRealEvent + " " + message;
-		next();
+		req.session.serverMessage = "Hackathon " + id + " is vewerkt met: " + isRealEvent + " " + message;
+		const views = {
+			approve: '/admin/approve_hackathons',
+		}
+		if(!redirectToView(req, res, views, req.headers.referer))
+			res.end('it shouldnt come to this');
 	});
 };

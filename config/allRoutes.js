@@ -54,6 +54,8 @@ module.exports = function(app, router){
 		next();
 	});
 
+
+
 	//admin views -- note: views are have under_scored style
 	router.route('/admin/dashboard').get(ensureLoggedin('/admin'), admin.dashboard);
 	router.route('/admin/approve_hackathons').get(ensureLoggedin('/admin'), admin.approveHackathons);
@@ -65,7 +67,7 @@ module.exports = function(app, router){
 	//admin functions -- note: functions have camelCase
 	router.route('/admin/addHackathon').post(ensureLoggedin('/admin'), admin.addHackathon);
 	router.route('/admin/deleteHackathon/:id').get(ensureLoggedin('/admin'), admin.deleteHackathon); //moet dit redirecten naar live_hackathons? Wordt door zowel spamview als liveview aangeroepen
-	router.route('/admin/processHackathon/:id').get(ensureLoggedin('/admin'), admin.processHackathon, admin.approveHackathons);
+	router.route('/admin/processHackathon/:id').get(ensureLoggedin('/admin'), admin.processHackathon); 
 	
 	router.route('/admin/dashboard').post(
 		passport.authenticate('local', { failureRedirect: '/admin' }),
