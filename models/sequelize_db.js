@@ -155,7 +155,16 @@ deleteHackathonById: (id) => {
 },
 
 setSpamAttrForHackathonById: (id, isRealEvent) => {
-	let isSpam = (isRealEvent===false)?true:false; //for some reason !isRealEvent doesn't work.
+	let isSpam;
+	if(isRealEvent === "true"){
+		isSpam = false;
+	}
+	else if (isRealEvent === "false"){
+		isSpam = true;
+	}
+	else{
+		console.log("Captured else statement of setSpamAttrForHackathonById");
+	}
 	return Hackathon.findOne({
 		where: {
 			id: id,

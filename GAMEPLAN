@@ -17,8 +17,7 @@ Hook admin up with frontend
 Add hackathon (admin)
 
 Captcha
-
-TO DO: change add_hackathon (invalid recaptcha) and navbar to one file, server-side animated messaging
+interactive messages (a la Petals of the Roses)
 
 Seeing the list of of current hackathons as admin with the ability to:
 	Check all the hackathons flagged as spam
@@ -29,7 +28,11 @@ Seeing the list of of current hackathons as admin with the ability to:
 
 Noscript tag toegevoegd: het is alleen mogelijk om hackathons te bekijken.
 
-Must have:
-Should have: usage statistics, account generation / suggestion for account when you added a hackathon, interactive messages (a la Petals of the Roses)
-Could have: filters (e.g. on time/weeks, cities, country), text parsing, terminal interface, facebook group specific API pulling, Edit functionality, Specific query functionality, graceful degradation, localization (should be an English site)
-Would have: map view where you see hackathon events for upcoming week, *automatic* account generation, hackathons toevoegen zonder javascript
+BUG FIXES:
+	+ Deleting hackathons
+	+ Viewing hackathons as spam
+
+Must have: DATA! / facebook group specific API pulling, usage statistics, database migration functionality
+Should have: account generation
+Could have: filters (e.g. on time/weeks, cities, country),Specific query functionality, graceful degradation, localization (should be an English site)
+Would have: map view where you see hackathon events for upcoming week, *automatic* account generation, hackathons toevoegen zonder javascript, terminal interface, Edit functionality,

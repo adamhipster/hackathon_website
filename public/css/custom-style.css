@@ -104,7 +104,8 @@ time.icon span
 
 @media (max-width: 768px){
   .server_msg {
-    margin: 0px 15px 0px 0px;
+    width: 100%;
+    margin: 0px 0px 0px 15px;
   }
 }
 

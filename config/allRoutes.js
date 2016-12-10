@@ -38,7 +38,7 @@ module.exports = function(app, router){
 
 
 	//anon user
-	router.route('/').get(hackathon.root);
+	router.route('/').get(hackathon.wortel);
 	router.route('/addHackathon').post(hackathon.add);
 	router.route('/admin').get(admin.root);
 

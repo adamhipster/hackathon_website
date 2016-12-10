@@ -1,15 +1,5 @@
 const model = require('../models/sequelize_db.js');
-
-function dispatchView(req, res, views, ref){
-	for (const routeNameKey in views){
-		if(ref.includes(routeNameKey)){
-			const viewValueFunc = views[routeNameKey];
-			viewValueFunc(req, res);
-			return true;
-		}
-	}
-	return false;
-}
+const dispatchView = require('./utils').dispatchView;
 
 exports.root = (req, res) => {
 	const viewContext = {};

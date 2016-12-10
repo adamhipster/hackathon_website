@@ -2,7 +2,7 @@
 function displayServerMessage () {
 	$svm = $("p.server_msg");
 	if (!isEmpty($svm)) {
-		setTimeout(function(){$svm.slideDown(300).delay(3000).slideUp(300)}, 1000);
+		setTimeout(function(){$svm.delay(300).slideDown(300).delay(3000).slideUp(300)}, 1000);
 	}
 }
 
@@ -11,3 +11,10 @@ function isEmpty( el ){
 }
 
 displayServerMessage();
+
+
+//reset forms on back button (back button stuff is hackish)
+$(window).bind("pageshow", function(event) {
+		var form = $('form');
+		form[0].reset();
+});

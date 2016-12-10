@@ -1,6 +1,8 @@
 const model = require('../models/sequelize_db.js');
 reCAPTCHA=require('recaptcha2')
 const moment = require('moment');
+const dispatchView = require('./utils').dispatchView;
+const encodeUrl = require('encodeurl');
 
 //TO DO: put in config file
 recaptcha=new reCAPTCHA({
@@ -8,7 +10,7 @@ recaptcha=new reCAPTCHA({
   secretKey:'6Lc4Gw4UAAAAAEOBaiXyh9SaEvv9ZKOyKRz0fsiY'
 });
 
-exports.root = (req, res) => {
+exports.wortel = (req, res) => {
 	model.getRealHackathons()
 	.then( (hackathons) => {
 		for (let hackathon of hackathons){
@@ -40,15 +42,21 @@ exports.root = (req, res) => {
 		}
 	
 		const viewContext = {
-			hackathons: hackathons, 
-		};	
+			hackathons: hackathons,
+			serverMessage: req.session.serverMessage, 
+		};
+
+		//back buttons should not be able to display messages
+		if(viewContext.serverMessage) res.setHeader('Cache-Control', 'no-cache, no-store');
+
+		req.session.serverMessage = null;
 		res.render('index', viewContext);
 	});
 };
 
 exports.add = (req, res) => {
-	recaptcha.validateRequest(req)
-	.then(function(){
+	// recaptcha.validateRequest(req)
+	// .then(function(){
 		// validated and secure
 		const b = req.body;
 		const hackathon = {
@@ -66,17 +74,21 @@ exports.add = (req, res) => {
 		const isSpam = null;
 		const isUnprocessed = true;
 		model.addHackathon(hackathon, location, isSpam, isUnprocessed)
-		.then( (result) => {
+		.then( (hackathon) => {
+			req.session.serverMessage = "Hackathon " + hackathon.id + " gehouden in " + hackathon.location.city + " is toegevoegd!";
 			
-			res.send(result);
+			//you need to eventually redirect on the fly but not for now.
+			res.redirect('/');
+
+			
 		});
-	})
-	.catch(function(errorCodes){
-		// invalid
-		console.log('\n\n__INVALID RECAPTCHA__\n');
-		console.log(recaptcha.translateErrors(errorCodes));// translate error codes to human readable text
-		res.redirect('/');
-	});
+	// })
+	// .catch(function(errorCodes){
+	// 	// invalid
+	// 	console.log('\n\n__INVALID RECAPTCHA__\n');
+	// 	console.log(recaptcha.translateErrors(errorCodes));// translate error codes to human readable text
+	// 	res.redirect('/');
+	// });
 
 }
 
