@@ -1,6 +1,7 @@
 //var hash = bcrypt.hashSync('password', 10);
 var records = [
     { id: 1, username: 'mella', password: '$2a$10$77g4G0a3kj6FJsxRC8VgdOX/0IQduK9p7SDcPcasC7C.2thjhW/EO'}
+    // { id: 1, username: 'mella', password: 'paard'}
 ];
 
 exports.findById = function(id, cb) {

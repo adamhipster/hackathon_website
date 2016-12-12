@@ -66,12 +66,13 @@ module.exports = function(app, router){
 
 	//admin functions -- note: functions have camelCase
 	router.route('/admin/addHackathon').post(ensureLoggedin('/admin'), admin.addHackathon);
-	router.route('/admin/deleteHackathon/:id').get(ensureLoggedin('/admin'), admin.deleteHackathon); //moet dit redirecten naar live_hackathons? Wordt door zowel spamview als liveview aangeroepen
+	router.route('/admin/deleteHackathon/:id').get(ensureLoggedin('/admin'), admin.deleteHackathon); 
+	router.route('/admin/editHackathon/:id').get(ensureLoggedin('/admin'), admin.editHackathon); 
 	router.route('/admin/processHackathon/:id').get(ensureLoggedin('/admin'), admin.processHackathon); 
 	
 	router.route('/admin/dashboard').post(
 		passport.authenticate('local', { failureRedirect: '/admin' }),
-		ensureLoggedin('/admin'), 
+		// ensureLoggedin('/admin'), 
 		admin.dashboard	//redirects to /admin/dashboard
 	);
 	router.route('/admin/logout').get(ensureLoggedin('/admin'), admin.logout);

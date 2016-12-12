@@ -154,6 +154,20 @@ deleteHackathonById: (id) => {
 	});
 },
 
+editHackathonById: (id, body) => {
+	return Post.findOne({ 
+		where: {
+			title: originalTitle
+		}
+	})
+	.then( (post) =>{
+		return post.update({
+			title: title,
+			body: body,
+		})
+	})
+},
+
 setSpamAttrForHackathonById: (id, isRealEvent) => {
 	let isSpam;
 	if(isRealEvent === "true"){

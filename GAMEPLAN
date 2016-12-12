@@ -28,11 +28,7 @@ Seeing the list of of current hackathons as admin with the ability to:
 
 Noscript tag toegevoegd: het is alleen mogelijk om hackathons te bekijken.
 
-BUG FIXES:
-	+ Deleting hackathons
-	+ Viewing hackathons as spam
-
-Must have: DATA! / facebook group specific API pulling, usage statistics, database migration functionality
-Should have: account generation
+Must have: DATA! / facebook group specific API pulling
+Should have: usage statistics, database migration functionality (check github van Izels students), account generation, Edit functionality,
 Could have: filters (e.g. on time/weeks, cities, country),Specific query functionality, graceful degradation, localization (should be an English site)
-Would have: map view where you see hackathon events for upcoming week, *automatic* account generation, hackathons toevoegen zonder javascript, terminal interface, Edit functionality,
+Would have: map view where you see hackathon events for upcoming week, *automatic* account generation, hackathons toevoegen zonder javascript, terminal interface, 

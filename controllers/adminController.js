@@ -87,7 +87,7 @@ exports.addHackathon = (req, res) => {
 		city: b.city,
 		address_name: b.address_name,
 		address_number: b.address_number,
-	}
+	};
 	const isSpam = false;
 	const isUnprocessed = false;
 	model.addHackathon(hackathon, location, isSpam, isUnprocessed)
@@ -113,6 +113,36 @@ exports.deleteHackathon = (req, res) => {
 		const ref = req.headers.referer;
 		const views = {
 			approve: '/admin/approve_hackathons', 
+			live: '/admin/live_hackathons'
+		};
+		if(!redirectToView(req, res, views, req.headers.referer))
+					res.end('it shouldnt come to this');
+	});
+};
+
+//take inspiration from the addhackathon method
+exports.editHackathon = (req, res) => {
+	const hackathon = {
+		name: b.name,
+		topic: b.topic,
+		start_date: b.start_date,
+		end_date: b.end_date,
+		url: b.url,
+	};
+	const location = {
+		city: b.city,
+		address_name: b.address_name,
+		address_number: b.address_number,
+	};
+	const isSpam = false;
+	const isUnprocessed = false;
+	const id = req.params.id;
+	
+	model.editHackathonById(id, body)
+	.then( (editMessage) => {
+		req.session.serverMessage = "Hackathon " + id + " is bewerkt";
+		const ref = req.headers.referer;
+		const views = {
 			live: '/admin/live_hackathons'
 		};
 		if(!redirectToView(req, res, views, req.headers.referer))

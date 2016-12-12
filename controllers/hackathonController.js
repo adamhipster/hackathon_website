@@ -11,7 +11,7 @@ recaptcha=new reCAPTCHA({
 });
 
 exports.wortel = (req, res) => {
-	model.getRealHackathons()
+ 	model.getRealHackathons()
 	.then( (hackathons) => {
 		for (let hackathon of hackathons){
 			let startDate = moment(hackathon.start_date).locale('nl').format('D');
@@ -53,9 +53,11 @@ exports.wortel = (req, res) => {
 	});
 };
 
+//note: the recaptcha commented code is for quicker debugging!
 exports.add = (req, res) => {
 	// recaptcha.validateRequest(req)
 	// .then(function(){
+		
 		// validated and secure
 		const b = req.body;
 		const hackathon = {
