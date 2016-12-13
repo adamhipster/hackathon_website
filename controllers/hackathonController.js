@@ -59,22 +59,9 @@ exports.add = (req, res) => {
 	// .then(function(){
 		
 		// validated and secure
-		const b = req.body;
-		const hackathon = {
-			name: b.name,
-			topic: b.topic,
-			start_date: b.start_date,
-			end_date: b.end_date,
-			url: b.url,
-		};
-		const location = {
-			city: b.city,
-			address_name: b.address_name,
-			address_number: b.address_number,
-		}
 		const isSpam = null;
 		const isUnprocessed = true;
-		model.addHackathon(hackathon, location, isSpam, isUnprocessed)
+		model.addHackathon(req.body, isSpam, isUnprocessed)
 		.then( (hackathon) => {
 			req.session.serverMessage = "Hackathon " + hackathon.id + " gehouden in " + hackathon.location.city + " is toegevoegd!";
 			

@@ -1,0 +1,6 @@
+bcrypt goes wrong the whole time, so if you rsync, you uninstall it with npm and then reinstall it.
+Also: you need to fill in your db password
+
+Als alles werkt:
+pm2 start hackathons/app.js
+sudo systemctl restart nginx

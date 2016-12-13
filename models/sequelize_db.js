@@ -118,17 +118,17 @@ getHackathonById: (id) => {
 	});
 },
 
-addHackathon: (hackathon, location, isSpam, isUnprocessed) => {
+addHackathon: (reqBody, isSpam, isUnprocessed) => {
 	const value = {
-		name: hackathon.name,
-		topic: hackathon.topic,
-		start_date: hackathon.start_date,
-		end_date: hackathon.end_date,
-		url: hackathon.url,
+		name: reqBody.name,
+		topic: reqBody.topic,
+		start_date: reqBody.start_date,
+		end_date: reqBody.end_date,
+		url: reqBody.url,
 		location: {
-			city: location.city,
-			address_name: location.address_name,
-			address_number: location.address_number,
+			city: reqBody.city,
+			address_name: reqBody.address_name,
+			address_number: reqBody.address_number,
 		},
 		status: {
 			spam: isSpam,					//null for anon users, false for admin
@@ -154,7 +154,7 @@ deleteHackathonById: (id) => {
 	});
 },
 
-editHackathonById: (id, body) => {
+editHackathonById: (id, reqBody) => {
 	return Post.findOne({ 
 		where: {
 			title: originalTitle

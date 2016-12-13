@@ -3,39 +3,8 @@ const admin = require('../controllers/adminController');
 const _ = require('underscore');
 const ensureLoggedin = require('connect-ensure-login').ensureLoggedIn;
 const passport = require('passport');
-const Strategy = require('passport-local').Strategy;
-const db = require('../models/passport_users');
-const bcrypt = require('bcrypt');
 
 module.exports = function(app, router){
-
-	//to do: put passport in its own seperate file
-	passport.use(new Strategy(
-		function(username, password, cb) {
-			db.findByUsername(username, function(err, user) {
-				if (err) { return cb(err); }
-				if (!user) { return cb(null, false); }
-				if (!bcrypt.compareSync(password, user.password) ) { return cb(null, false); }
-
-				return cb(null, user);
-			});
-		}));
-
-	passport.serializeUser(function(user, cb) {
-		cb(null, user.id);
-	});
-
-	passport.deserializeUser(function(id, cb) {
-		db.findById(id, function (err, user) {
-			if (err) { return cb(err); }
-			cb(null, user);
-		});
-	});
-
-	app.use(passport.initialize());
-	app.use(passport.session());
-	//end passport
-
 
 	//anon user
 	router.route('/').get(hackathon.wortel);
@@ -72,7 +41,6 @@ module.exports = function(app, router){
 	
 	router.route('/admin/dashboard').post(
 		passport.authenticate('local', { failureRedirect: '/admin' }),
-		// ensureLoggedin('/admin'), 
 		admin.dashboard	//redirects to /admin/dashboard
 	);
 	router.route('/admin/logout').get(ensureLoggedin('/admin'), admin.logout);

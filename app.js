@@ -1,6 +1,7 @@
 const express = require('express');
 const app     = express();
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 app.use(express.static('public'));
 app.set('views', './views');
@@ -14,6 +15,11 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+//set up passport
+require('./models/passport_users').init();
+app.use(passport.initialize());
+app.use(passport.session());
 
 //routers
 require('./config/allRoutes')(app, express.Router());

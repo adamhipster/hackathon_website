@@ -75,22 +75,9 @@ exports.logout = (req, res) => {
 }
 
 exports.addHackathon = (req, res) => {
-	const b = req.body;
-	const hackathon = {
-		name: b.name,
-		topic: b.topic,
-		start_date: b.start_date,
-		end_date: b.end_date,
-		url: b.url,
-	};
-	const location = {
-		city: b.city,
-		address_name: b.address_name,
-		address_number: b.address_number,
-	};
 	const isSpam = false;
 	const isUnprocessed = false;
-	model.addHackathon(hackathon, location, isSpam, isUnprocessed)
+	model.addHackathon(req.body, isSpam, isUnprocessed)
 	.then( (hackathon) => {
 		req.session.serverMessage = "Hackathon " + hackathon.id + " gehouden in " + hackathon.location.city + " is toegevoegd!";
 		const views = {
@@ -122,23 +109,11 @@ exports.deleteHackathon = (req, res) => {
 
 //take inspiration from the addhackathon method
 exports.editHackathon = (req, res) => {
-	const hackathon = {
-		name: b.name,
-		topic: b.topic,
-		start_date: b.start_date,
-		end_date: b.end_date,
-		url: b.url,
-	};
-	const location = {
-		city: b.city,
-		address_name: b.address_name,
-		address_number: b.address_number,
-	};
 	const isSpam = false;
 	const isUnprocessed = false;
 	const id = req.params.id;
 	
-	model.editHackathonById(id, body)
+	model.editHackathonById(id, req.body)
 	.then( (editMessage) => {
 		req.session.serverMessage = "Hackathon " + id + " is bewerkt";
 		const ref = req.headers.referer;

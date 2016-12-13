@@ -1,0 +1,4 @@
+
+rsync -avz -e 'ssh' /path/to/local/dir user@remotehost:/path/to/remote/dir
+
+rsync -avz -e 'ssh' . melvin@95.85.14.53:/home/melvin/hackathons
