@@ -3,6 +3,7 @@ reCAPTCHA=require('recaptcha2')
 const moment = require('moment');
 const dispatchView = require('./utils').dispatchView;
 const encodeUrl = require('encodeurl');
+const lang = 'en';
 
 //TO DO: put in config file
 recaptcha=new reCAPTCHA({
@@ -14,22 +15,22 @@ exports.wortel = (req, res) => {
  	model.getRealHackathons()
 	.then( (hackathons) => {
 		for (let hackathon of hackathons){
-			let startDate = moment(hackathon.start_date).locale('nl').format('D');
-			let startDay = moment(hackathon.start_date).locale('nl').format('dd');
-			let startMonth = moment(hackathon.start_date).locale('nl').format('MMMM');
-			let startYear = moment(hackathon.start_date).locale('nl').format('YY');
-			let endDate = moment(hackathon.end_date).locale('nl').format('D');
-			let endDay = moment(hackathon.end_date).locale('nl').format('dd');
-			let endMonth = moment(hackathon.end_date).locale('nl').format('MMMM');
-			let endYear = moment(hackathon.end_date).locale('nl').format('YY');
+			let startDate = moment(hackathon.start_date).locale(lang).format('D');
+			let startDay = moment(hackathon.start_date).locale(lang).format('dd');
+			let startMonth = moment(hackathon.start_date).locale(lang).format('MMMM');
+			let startYear = moment(hackathon.start_date).locale(lang).format('YY');
+			let endDate = moment(hackathon.end_date).locale(lang).format('D');
+			let endDay = moment(hackathon.end_date).locale(lang).format('dd');
+			let endMonth = moment(hackathon.end_date).locale(lang).format('MMMM');
+			let endYear = moment(hackathon.end_date).locale(lang).format('YY');
 			
 			let monthRenderString = startMonth;
 			let dayRenderString = startDay + ' - ' + endDay;
 			let dateRenderString = startDate + ' - ' + endDate;
 			
 			if (startMonth!==endMonth){
-				startMonth = moment(hackathon.start_date).locale('nl').format('MMM');
-				endMonth = moment(hackathon.end_date).locale('nl').format('MMM');
+				startMonth = moment(hackathon.start_date).locale(lang).format('MMM');
+				endMonth = moment(hackathon.end_date).locale(lang).format('MMM');
 				monthRenderString = startMonth + ' - ' + endMonth;
 			}
 			if (startYear!==endYear){

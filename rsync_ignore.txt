@@ -1,0 +1,20 @@
+
+.DS_Store
+.env
+.vscode/
+config/.DS_Store
+ignore/
+node_modules/
+prototypes of website/.DS_Store
+prototypes of website/mockup/.DS_Store
+prototypes of website/mockup/css/.DS_Store
+prototypes of website/terminal_app/.DS_Store
+prototypes of website/terminal_app/api_tests/.DS_Store
+prototypes of website/terminal_app/node_modules/
+public/.DS_Store
+public/css/.DS_Store
+python_fb_group_crawls/.DS_Store
+python_fb_group_crawls/virtual_environment/
+typings/
+views/.DS_Store
+views/admin/.DS_Store

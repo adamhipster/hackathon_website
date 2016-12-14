@@ -4,3 +4,7 @@ Also: you need to fill in your db password
 Als alles werkt:
 pm2 start hackathons/app.js
 sudo systemctl restart nginx
+
+voor deployment via rsync:
+copy/paste de bestanden die ignored zijn met git status --ignore
+stop ze in een text file en run dan: rsync -avz --exclude-from='rsync_ignore.txt' -e 'ssh' . melvin@95.85.14.53:/home/melvin/hackathons
