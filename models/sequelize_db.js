@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 //Possible values: "hackathonsapp" or "hackathonsapptest"
-const db = new Sequelize( process.env.DB_NAME || "hackathonsapp", 'melvin', '', {
+const db = new Sequelize( process.env.DB_NAME || "hackathonsapp", 'melvin', 'paard112097097114100', {
 	dialect: 'postgres',
 	logging: (process.env.DB_NAME=="hackathonsapptest"?false:true)
 });

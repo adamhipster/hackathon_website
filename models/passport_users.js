@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 //var hash = bcrypt.hashSync('password', 10);
 const records = [
     { 
-      id: 1, username: 'mella', password: '$2a$10$77g4G0a3kj6FJsxRC8VgdOX/0IQduK9p7SDcPcasC7C.2thjhW/EO'
+      id: 1, username: 'mella', password: '$2a$10$djUNMqklj7/P5YLf/p7Mr.6Aq62Fx/tTG2rDW8.TfLuACApoQoapW'
     }
 ];
 

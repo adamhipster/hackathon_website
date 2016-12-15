@@ -56,8 +56,8 @@ exports.wortel = (req, res) => {
 
 //note: the recaptcha commented code is for quicker debugging!
 exports.add = (req, res) => {
-	// recaptcha.validateRequest(req)
-	// .then(function(){
+	recaptcha.validateRequest(req)
+	.then(function(){
 		
 		// validated and secure
 		const isSpam = null;
@@ -71,13 +71,13 @@ exports.add = (req, res) => {
 
 			
 		});
-	// })
-	// .catch(function(errorCodes){
-	// 	// invalid
-	// 	console.log('\n\n__INVALID RECAPTCHA__\n');
-	// 	console.log(recaptcha.translateErrors(errorCodes));// translate error codes to human readable text
-	// 	res.redirect('/');
-	// });
+	})
+	.catch(function(errorCodes){
+		// invalid
+		console.log('\n\n__INVALID RECAPTCHA__\n');
+		console.log(recaptcha.translateErrors(errorCodes));// translate error codes to human readable text
+		res.redirect('/');
+	});
 
 }
 
