@@ -173,14 +173,11 @@ editHackathonById: (id, reqBody) => {
 				address_number: reqBody.address_number,
 			},
 			status: {
-				spam: isSpam,				//null for anon users, false for admin
-				unprocessed: isUnprocessed, //true for anon users, false for admin
+				spam: reqBody.isSpam,				//null for anon users, false for admin
+				unprocessed: reqBody.isUnprocessed, //true for anon users, false for admin
 			}
 		};
-		const opts = {
-			include: [Location, Status]
-		};
-		return post.update(value, opts)
+		return hackathon.update(value)
 		.catch( (error) => {
 			console.log(error);
 			return error;

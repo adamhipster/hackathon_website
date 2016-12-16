@@ -18,11 +18,11 @@
 						.form-group
 							label.col-md-4.control-label(for='start_date') Begint op
 							.col-md-4
-								input#start_date.ss-q-date.form-control.input-md(type='date', name='start_date', value='', dir='auto', aria-label='Begint op  ')
+								input#start_date.ss-q-date.form-control.input-md(type='date', name='start_date', value='test1', dir='auto', aria-label='Begint op  ')
 						.form-group
 							label.col-md-4.control-label(for='end_date') Eindigt op
 							.col-md-4
-								input#end_date.ss-q-date.form-control.input-md(type='date', name='end_date', value='', dir='auto', aria-label='Eindigt op  ')
+								input#end_date.ss-q-date.form-control.input-md(type='date', name='end_date', value='test2', dir='auto', aria-label='Eindigt op  ')
 						.form-group
 							label.col-md-4.control-label(for='city') Stad
 							.col-md-4
@@ -36,3 +36,21 @@
 							label.col-md-4.control-label(for='submit')
 							.col-md-4
 								button#submit.btn.btn-primary.btn-lg.col-md-12(name='submit') Verstuur
+script.
+	var editBase = $('form')[1].action;
+	$('#editModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget);
+		var name = button.data('name');
+		var city = button.data('city');
+		var start_date = button.data('start_date');
+		var end_date = button.data('end_date');
+		var url = button.data('url');
+		var id = button.data('id');
+		var modal = $(this);
+		modal.find('#name').val(name);
+		modal.find('#city').val(city);
+		modal.find('#start_date').val(start_date.split('T')[0]);
+		modal.find('#end_date').val(end_date.split('T')[0]);
+		modal.find('#url').val(url);
+		$('form')[1].action = editBase + '/' + id;
+	});
