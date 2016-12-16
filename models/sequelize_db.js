@@ -155,16 +155,36 @@ deleteHackathonById: (id) => {
 },
 
 editHackathonById: (id, reqBody) => {
-	return Post.findOne({ 
+	return Hackathon.findOne({ 
 		where: {
-			title: originalTitle
+			id: id,
 		}
 	})
-	.then( (post) =>{
-		return post.update({
-			title: title,
-			body: body,
-		})
+	.then( (hackathon) =>{
+		const value = {
+			name: reqBody.name,
+			topic: reqBody.topic,
+			start_date: reqBody.start_date,
+			end_date: reqBody.end_date,
+			url: reqBody.url,
+			location: {
+				city: reqBody.city,
+				address_name: reqBody.address_name,
+				address_number: reqBody.address_number,
+			},
+			status: {
+				spam: isSpam,				//null for anon users, false for admin
+				unprocessed: isUnprocessed, //true for anon users, false for admin
+			}
+		};
+		const opts = {
+			include: [Location, Status]
+		};
+		return post.update(value, opts)
+		.catch( (error) => {
+			console.log(error);
+			return error;
+		});
 	})
 },
 

@@ -25,5 +25,16 @@ html(lang='en')
 									td #{hackathon.start_date}
 									td 
 										a.btn.btn-danger(href='/admin/deleteHackathon/'+hackathon.id) Delete 
-										//- a.btn.btn-danger(href='/admin/editHackathon/'+hackathon.id) Edit 
-		include ../partials/scripts.pug
+										a.btn.btn-warning(href='#', data-toggle='modal', data-target='#editModal' onclick="retrieveHackathon("+hackathon.id+")") Edit
+										//- ^ It needs to call a modal view with the data in it.
+include ../partials/edit_hackathon.pug
+include ../partials/scripts.pug
+script.
+	function retrieveHackathon(id){
+		//name
+		//start_date
+		//end_date
+		//city
+		//url
+		$('#name').text('test');
+	}
