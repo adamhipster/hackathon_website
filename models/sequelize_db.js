@@ -6,7 +6,7 @@ const match = process.env.HEROKU_POSTGRESQL_AMBER_URL.match(/postgres:\/\/([^:]+
 
 if (process.env.HEROKU_POSTGRESQL_AMBER_URL) {
     // the application is executed on Heroku ... use the postgres database
-    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_AMBER_URL, {
+    db = new Sequelize(process.env.HEROKU_POSTGRESQL_AMBER_URL, {
       dialect:  'postgres',
       protocol: 'postgres',
       port:     match[4],
