@@ -14,7 +14,7 @@ if (process.env.HEROKU_POSTGRESQL_AMBER_URL) {
     })
 }
 else {
-	const db = new Sequelize( process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+	db = new Sequelize( process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
 		dialect: 'postgres',
 		logging: (process.env.DB_NAME=="hackathonsapptest"?false:true)
 	});
