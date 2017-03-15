@@ -1,14 +1,28 @@
 const Sequelize = require('sequelize')
 
 //Possible values: "hackathonsapp" or "hackathonsapptest"
-const db = new Sequelize( process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-	dialect: 'postgres',
-	logging: (process.env.DB_NAME=="hackathonsapptest"?false:true)
-});
 
-console.log("db name");
-console.log(process.env.DB_NAME);
-console.log(db.config.database);
+
+if (process.env.HEROKU_POSTGRESQL_AMBER_URL) {
+    // the application is executed on Heroku ... use the postgres database
+    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_AMBER_URL, {
+      dialect:  'postgres',
+      protocol: 'postgres',
+      port:     match[4],
+      host:     match[3],
+      logging:  true //false
+    })
+}
+else {
+	const db = new Sequelize( process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+		dialect: 'postgres',
+		logging: (process.env.DB_NAME=="hackathonsapptest"?false:true)
+	});
+}
+
+//console.log("db name");
+//console.log(process.env.DB_NAME);
+//console.log(db.config.database);
 
 db.authenticate().catch(x => console.log(x)).then(x => console.log('>> database connection established'));
 
