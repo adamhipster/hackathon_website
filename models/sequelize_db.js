@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
+const match = process.env.HEROKU_POSTGRESQL_AMBER_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
 
 //Possible values: "hackathonsapp" or "hackathonsapptest"
 
