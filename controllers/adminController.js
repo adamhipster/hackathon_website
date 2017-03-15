@@ -103,7 +103,7 @@ exports.deleteHackathon = (req, res) => {
 			live: '/admin/live_hackathons'
 		};
 		if(!redirectToView(req, res, views, req.headers.referer))
-					res.end('it shouldnt come to this');
+			res.end('it shouldnt come to this');
 	});
 };
 
@@ -121,7 +121,7 @@ exports.editHackathon = (req, res) => {
 			live: '/admin/live_hackathons'
 		};
 		if(!redirectToView(req, res, views, req.headers.referer))
-					res.end('it shouldnt come to this');
+			res.end('it shouldnt come to this');
 	});
 };
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const app     = express();
+const app     = express(); //createapplication, init()
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
