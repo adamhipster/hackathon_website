@@ -36,7 +36,7 @@ function getDashboard(hackathonName){
 				if(err) done(err);
 				model.getUnprocessedHackathons()
 				.then( (hackathons) => {
-					assert.equal( (hackathons[0]?hackathons[0].name:""), hackathonName);
+					assert.equal( (hackathons[0] ? hackathons[0].name : ""), hackathonName);
 					done();
 				});	
 			});

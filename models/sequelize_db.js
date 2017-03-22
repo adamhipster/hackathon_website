@@ -1,25 +1,11 @@
 const Sequelize = require('sequelize')
-const match = process.env.HEROKU_POSTGRESQL_AMBER_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-
-//Possible values: "hackathonsapp" or "hackathonsapptest"
+//const match = process.env.HEROKU_POSTGRESQL_AMBER_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
 
 
-if (process.env.HEROKU_POSTGRESQL_AMBER_URL) {
-    // the application is executed on Heroku ... use the postgres database
-    db = new Sequelize(process.env.HEROKU_POSTGRESQL_AMBER_URL, {
-      dialect:  'postgres',
-      protocol: 'postgres',
-      port:     match[4],
-      host:     match[3],
-      logging:  true //false
-    })
-}
-else {
 	db = new Sequelize( process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
 		dialect: 'postgres',
 		logging: (process.env.DB_NAME=="hackathonsapptest"?false:true)
 	});
-}
 
 //console.log("db name");
 //console.log(process.env.DB_NAME);
@@ -106,11 +92,11 @@ Hackathon.hasOne(Location);
 
 //PRODUCTION DB START
 db.sync()
-.catch( (error) => console.log(error) );
+.catch( (error) => console.log("error occuring: " + error) );
 
 //DEVELOPMENT DB START
 // db.sync({force:true})
-// .catch( (error) => console.log(error) );
+// .catch( (error) => console.log("error occuring: " + error) );
 
 //EXPOSE PUBLICLY
 module.exports = {db: db, Hackathon: Hackathon, Location: Location, Status: Status,
@@ -121,7 +107,8 @@ getAllHackathons: () => {
 	})
 	.then( (hackathons) => {
 		return hackathons;
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 getHackathonById: (id) => {
@@ -130,7 +117,8 @@ getHackathonById: (id) => {
 	})
 	.then( (hackathon) => {
 		return hackathon;
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 addHackathon: (reqBody, isSpam, isUnprocessed) => {
@@ -155,7 +143,7 @@ addHackathon: (reqBody, isSpam, isUnprocessed) => {
 	};
 	return Hackathon.create(value, opts)	
 	.catch( (error) => {
-		console.log(error);
+		console.log("error occuring: " + error);
 		return error;
 	});
 },
@@ -166,7 +154,8 @@ deleteHackathonById: (id) => {
 			id: id,
 		},
 		include: [{all: true}]
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 editHackathonById: (id, reqBody) => {
@@ -194,7 +183,7 @@ editHackathonById: (id, reqBody) => {
 		};
 		return hackathon.update(value)
 		.catch( (error) => {
-			console.log(error);
+			console.log("error occuring: " + error);
 			return error;
 		});
 	})
@@ -222,7 +211,8 @@ setSpamAttrForHackathonById: (id, isRealEvent) => {
 			unprocessed: false,
 			spam: isSpam,
 		});
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 getUnprocessedHackathons: () => {
@@ -237,7 +227,8 @@ getUnprocessedHackathons: () => {
 	})
 	.then( (hackathons) => {
 		return hackathons;
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 getRealHackathons: () => {
@@ -253,7 +244,8 @@ getRealHackathons: () => {
 	})
 	.then( (hackathons) => {
 		return hackathons;
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 getDeletedHackathons: () => {
@@ -264,7 +256,8 @@ getDeletedHackathons: () => {
 	})
 	.then( (hackathons) => {
 		return hackathons;
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 getSpammedHackathons: () => {
@@ -279,7 +272,8 @@ getSpammedHackathons: () => {
 	})
 	.then( (hackathons) =>{
 		return hackathons;
-	});
+	})
+	.catch( (error) => console.log("error occuring: " + error) );
 },
 
 
